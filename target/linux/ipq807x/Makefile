@@ -12,10 +12,9 @@ KERNEL_PATCHVER:=5.15
 
 include $(INCLUDE_DIR)/target.mk
 DEFAULT_PACKAGES += \
-	kmod-usb3 kmod-usb-dwc3 kmod-usb-dwc3-qcom \
 	kmod-leds-gpio kmod-gpio-button-hotplug \
 	libwolfsslcpu-crypto kmod-qca-nss-dp \
 	ath11k-firmware-ipq8074 kmod-ath11k-ahb \
-	wpad-basic-wolfssl uboot-envtools
+	wpad-wolfssl uboot-envtools
 
 $(eval $(call BuildTarget))
