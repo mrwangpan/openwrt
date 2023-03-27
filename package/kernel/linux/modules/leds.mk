@@ -99,6 +99,22 @@ endef
 $(eval $(call KernelPackage,ledtrig-oneshot))
 
 
+define KernelPackage/ledtrig-pattern
+  SUBMENU:=$(LEDS_MENU)
+  TITLE:=LED Pattern Trigger
+  KCONFIG:=CONFIG_LEDS_TRIGGER_PATTERN
+  FILES:=$(LED_TRIGGER_DIR)/ledtrig-pattern.ko
+  AUTOLOAD:=$(call AutoLoad,50,ledtrig-pattern)
+endef
+
+define KernelPackage/ledtrig-pattern/description
+ This allows LEDs to be controlled by a software or hardware pattern
+ which is a series of tuples, of brightness and duration (ms).
+endef
+
+$(eval $(call KernelPackage,ledtrig-pattern))
+
+
 define KernelPackage/leds-apu
   SUBMENU:=$(LEDS_MENU)
   TITLE:=PC Engines APU1 LED support
@@ -113,6 +129,25 @@ define KernelPackage/leds-apu/description
 endef
 
 $(eval $(call KernelPackage,leds-apu))
+
+
+define KernelPackage/leds-pca955x
+  SUBMENU:=$(LEDS_MENU)
+  TITLE:=LED driver for PCA955x I2C chips
+  DEPENDS:=@GPIO_SUPPORT +kmod-i2c-core
+  KCONFIG:=CONFIG_LEDS_PCA955X \
+    CONFIG_LEDS_PCA955X_GPIO=y
+  FILES:=$(LINUX_DIR)/drivers/leds/leds-pca955x.ko
+  AUTOLOAD:=$(call AutoLoad,60,leds-pca955x,1)
+endef
+
+define KernelPackage/leds-pca955x/description
+ This option enables support for LEDs connected to PCA955x
+ LED driver chips accessed via the I2C bus.  Supported
+ devices include PCA9550, PCA9551, PCA9552, and PCA9553.
+endef
+
+$(eval $(call KernelPackage,leds-pca955x))
 
 
 define KernelPackage/leds-pca963x
@@ -145,6 +180,24 @@ define KernelPackage/leds-pwm/description
 endef
 
 $(eval $(call KernelPackage,leds-pwm))
+
+
+define KernelPackage/leds-tlc591xx
+  SUBMENU:=$(LEDS_MENU)
+  TITLE:=LED driver for TLC59108 and TLC59116 controllers
+  DEPENDS:=+kmod-i2c-core +kmod-regmap-i2c
+  KCONFIG:=CONFIG_LEDS_TLC591XX
+  FILES:=$(LINUX_DIR)/drivers/leds/leds-tlc591xx.ko
+  AUTOLOAD:=$(call AutoLoad,60,leds-tlc591xx,1)
+endef
+
+define KernelPackage/leds-tlc591xx/description
+ This option enables support for Texas Instruments TLC59108
+ and TLC59116 LED controllers.
+endef
+
+$(eval $(call KernelPackage,leds-tlc591xx))
+
 
 define KernelPackage/leds-uleds
   SUBMENU:=$(LEDS_MENU)

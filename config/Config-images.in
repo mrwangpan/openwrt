@@ -47,7 +47,6 @@ menu "Target Images"
 				bool "xz"
 
 			config TARGET_INITRAMFS_COMPRESSION_ZSTD
-				depends on !LINUX_5_4 && !LINUX_4_19
 				bool "zstd"
 		endchoice
 
@@ -151,7 +150,7 @@ menu "Target Images"
 		bool "squashfs"
 		default y if USES_SQUASHFS
 		help
-		  Build a squashfs-lzma root filesystem.
+		  Build a squashfs root filesystem.
 
 		config TARGET_SQUASHFS_BLOCK_SIZE
 			int "Block size (in KiB)"
@@ -159,6 +158,9 @@ menu "Target Images"
 			default 64 if LOW_MEMORY_FOOTPRINT
 			default 1024 if (SMALL_FLASH && !LOW_MEMORY_FOOTPRINT)
 			default 256
+			help
+			  Select squashfs block size, must be one of:
+			    4, 8, 16, 32, 64, 128, 256, 512, 1024
 
 	menuconfig TARGET_ROOTFS_UBIFS
 		bool "ubifs"
@@ -272,6 +274,12 @@ menu "Target Images"
 		depends on GRUB_IMAGES || GRUB_EFI_IMAGES
 		select PACKAGE_kmod-e1000
 
+	config VHDX_IMAGES
+		bool "Build Hyper-V image files (VHDX)"
+		depends on TARGET_x86
+		depends on GRUB_IMAGES || GRUB_EFI_IMAGES
+		select PACKAGE_kmod-e1000
+
 	config TARGET_IMAGES_GZIP
 		bool "GZip images"
 		depends on TARGET_ROOTFS_EXT4FS || TARGET_x86 || TARGET_armvirt || TARGET_malta
@@ -290,7 +298,7 @@ menu "Target Images"
 
 	config TARGET_ROOTFS_PARTSIZE
 		int "Root filesystem partition size (in MiB)"
-		depends on USES_ROOTFS_PART || TARGET_ROOTFS_EXT4FS || TARGET_omap || TARGET_sunxi || TARGET_uml
+		depends on USES_ROOTFS_PART || TARGET_ROOTFS_EXT4FS
 		default 104
 		help
 		  Select the root filesystem partition size.

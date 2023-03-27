@@ -24,6 +24,9 @@ adtran,bsap1840)
 	ucidef_add_gpio_switch "wifi0_ext_c" "2.4GHz External Antenna C" "509" "1"
 	ucidef_add_gpio_switch "wifi0_int_c" "2.4GHz Internal Antenna C" "510"
 	;;
+asus,pl-ac56)
+	ucidef_add_gpio_switch "plc_enable" "PLC enable" "14" "1"
+	;;
 comfast,cf-e5|\
 telco,t1)
 	ucidef_add_gpio_switch "lte_power" "LTE Power" "14" "1"
@@ -76,12 +79,12 @@ tplink,wbs510-v2)
 	ucidef_add_gpio_switch "poe_passthrough" "PoE Passthrough" "20"
 	;;
 ubnt,aircube-ac|\
-ubnt,aircube-isp)
-	ucidef_add_gpio_switch "poe_passthrough" "PoE Passthrough" "11"
-	;;
 ubnt,nanobeam-ac-gen2|\
 ubnt,nanostation-ac)
 	ucidef_add_gpio_switch "poe_passthrough" "PoE Passthrough" "3"
+	;;
+ubnt,aircube-isp)
+	ucidef_add_gpio_switch "poe_passthrough" "PoE Passthrough" "11"
 	;;
 ubnt,nanostation-m)
 	ucidef_add_gpio_switch "poe_passthrough" "PoE Passthrough" "8"

@@ -1,6 +1,27 @@
+From 2b88563ee5aafd9571d965b7f2093a0f58d98a31 Mon Sep 17 00:00:00 2001
+From: John Crispin <john@phrozen.org>
+Date: Thu, 26 Nov 2020 12:02:21 +0100
+Subject: net: phy: EEE support for rtl838x
+
+* rename the target to realtek
+* add refactored DSA driver
+* add latest gpio driver
+* lots of arch cleanups
+* new irq driver
+* additional boards
+
+Submitted-by: Bert Vermeulen <bert@biot.com>
+Submitted-by: Birger Koblitz <mail@birger-koblitz.de>
+Submitted-by: Sander Vanheule <sander@svanheule.net>
+Submitted-by: Bjørn Mork <bjorn@mork.no>
+Submitted-by: John Crispin <john@phrozen.org>
+---
+ drivers/net/phy/phylink.                      | 14 +++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
 --- a/drivers/net/phy/phylink.c
 +++ b/drivers/net/phy/phylink.c
-@@ -1425,6 +1425,11 @@ int phylink_ethtool_ksettings_set(struct
+@@ -1449,6 +1449,11 @@ int phylink_ethtool_ksettings_set(struct
  		 *   the presence of a PHY, this should not be changed as that
  		 *   should be determined from the media side advertisement.
  		 */
@@ -12,7 +33,7 @@
  		return phy_ethtool_ksettings_set(pl->phydev, kset);
  	}
  
-@@ -1726,8 +1731,11 @@ int phylink_ethtool_get_eee(struct phyli
+@@ -1750,8 +1755,11 @@ int phylink_ethtool_get_eee(struct phyli
  
  	ASSERT_RTNL();
  
@@ -25,7 +46,7 @@
  
  	return ret;
  }
-@@ -1744,8 +1752,11 @@ int phylink_ethtool_set_eee(struct phyli
+@@ -1768,8 +1776,11 @@ int phylink_ethtool_set_eee(struct phyli
  
  	ASSERT_RTNL();
  
